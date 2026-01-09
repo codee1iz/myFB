@@ -1,0 +1,63 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10 col-lg-8">
+    <h1 class="mb-4">First Blood Telegram</h1>
+    <div id="fb-tg-alert"></div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Settings</h5>
+        <form id="fb-tg-form">
+          <div class="form-group">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="fb-tg-enabled">
+              <label class="custom-control-label" for="fb-tg-enabled">Enabled</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fb-tg-token">Bot Token</label>
+            <input type="password" class="form-control" id="fb-tg-token" placeholder="Enter new token">
+            <small id="fb-tg-token-help" class="form-text text-muted"></small>
+            <button class="btn btn-sm btn-outline-danger mt-2" type="button" id="fb-tg-clear-token">Clear token</button>
+          </div>
+
+          <div class="form-group">
+            <label for="fb-tg-chat-id">Chat ID</label>
+            <input type="text" class="form-control" id="fb-tg-chat-id" placeholder="-1001234567890">
+            <small class="form-text text-muted">Supports negative IDs for channels/supergroups.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="fb-tg-parse-mode">Parse mode</label>
+            <select class="form-control" id="fb-tg-parse-mode">
+              <option value="">None</option>
+              <option value="HTML">HTML</option>
+              <option value="MarkdownV2">MarkdownV2</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fb-tg-template">Template</label>
+            <textarea class="form-control" id="fb-tg-template" rows="4"></textarea>
+            <small class="form-text text-muted">Placeholders: {solver}, {solver_type}, {challenge}, {category}, {points}, {solve_id}, {challenge_id}, {date_utc}</small>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="button" id="fb-tg-save">Save</button>
+            <button class="btn btn-outline-secondary ml-2" type="button" id="fb-tg-test">Send test message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.firstBloodTelegramSettings = {{ settings | tojson }};
+  window.firstBloodTelegramPlaceholders = {{ placeholders | tojson }};
+</script>
+<script src="{{ url_for('first_blood_telegram.static', filename='first_blood_telegram.js') }}"></script>
+{% endblock %}
